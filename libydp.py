@@ -5,6 +5,7 @@ __all__ = ('CYdpDict',)
 from ctypes import CDLL, Structure as CStructure
 from ctypes import c_void_p, c_uint16, c_uint32, c_int, c_char, c_char_p
 from ctypes import POINTER as c_pointer_t, pointer as c_pointer, cast
+from ctypes import pythonapi as libpython, py_object
 from lxml.etree import HTML
 
 liby = CDLL('libydpdict.so.1')
@@ -29,7 +30,7 @@ class YdpDict(CStructure):
 		rv = liby.ydpdict_open(c_pointer(self), dat_file_name, idx_file_name, 1)
 		if rv != 0:
 			self._open = False
-			raise IOError
+			raise libpython.PyErr_SetFromErrno(py_object(OSError))
 		self._open = True
 
 	def __enter__(self):
@@ -46,7 +47,7 @@ class YdpDict(CStructure):
 		read_xhtml.restype = c_pointer_t(c_char)
 		result = read_xhtml(c_pointer(self), c_uint32(nth))
 		if result is None:
-			raise IOError
+			raise libpython.PyErr_SetFromErrno(py_object(OSError))
 		try:
 			return HTML(cast(result, c_char_p).value).find('body' % globals())
 		finally:
