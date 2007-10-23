@@ -11,12 +11,33 @@ from lxml.etree import HTML
 liby = CDLL('libydpdict.so.1')
 libc = CDLL('libc.so.6')
 
+class YdpWord(object):
+	def __init__(self, owner, nth):
+		self.owner = owner
+		self.nth = nth
+	
+	@property
+	def name(self):
+		return self.owner.words[self.nth].decode('UTF-8')
+	
+	@property
+	def definition(self):
+		read_xhtml = liby.ydpdict_read_xhtml
+		read_xhtml.restype = c_pointer_t(c_char)
+		result = read_xhtml(c_pointer(self.owner), c_uint32(self.nth))
+		if result is None:
+			raise libpython.PyErr_SetFromErrno(py_object(OSError))
+		try:
+			return HTML(cast(result, c_char_p).value).find('body' % globals())
+		finally:
+			libc.free(result)
+
 class YdpDict(CStructure):
 	_fields_ = \
 	(
 		('dat', c_void_p),
 		('idx', c_void_p),
-		('words', c_void_p),
+		('words', c_pointer_t(c_char_p)),
 		('word_count', c_uint16),
 		('indices', c_void_p),
 		('encoding', c_int),
@@ -43,15 +64,7 @@ class YdpDict(CStructure):
 		return (self[i] for i in xrange(self.word_count))
 
 	def __getitem__(self, nth):
-		read_xhtml = liby.ydpdict_read_xhtml
-		read_xhtml.restype = c_pointer_t(c_char)
-		result = read_xhtml(c_pointer(self), c_uint32(nth))
-		if result is None:
-			raise libpython.PyErr_SetFromErrno(py_object(OSError))
-		try:
-			return HTML(cast(result, c_char_p).value).find('body' % globals())
-		finally:
-			libc.free(result)
+		return YdpWord(self, nth)
 			
 	def close(self):
 		if self._open:

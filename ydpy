@@ -31,6 +31,13 @@ oparser.add_option('-f', '--path', action = 'store', dest = 'path', default = No
 oparser.set_defaults(dict_n = 100)
 (options, args) = oparser.parse_args()
 
+if args:
+	import re
+	matcher = re.compile(args[0], re.LOCALE | re.IGNORECASE | re.DOTALL).search
+	del re
+else:
+	matcher = lambda s: True
+
 path = options.path or config.get('Path')
 if not path:
 	raise ConfigurationError()
@@ -45,9 +52,11 @@ else:
 formatter = None
 try:
 	with YdpDict(path_join(path, 'dict%03d.dat' % dict_n), path_join(path, 'dict%03d.idx' % dict_n)) as ydpd:
-		for definition in ydpd:
+		for entry in ydpd:
+			if not matcher(entry.name):
+				continue
 			formatter = YdpFormatter(encoding = encoding)
-			formatter(definition)
+			formatter(entry.definition)
 			sys.stdout.write(str(formatter))
 finally:
 	if formatter:
