@@ -31,9 +31,12 @@ oparser.add_option('-f', '--path', action = 'store', dest = 'path', default = No
 oparser.set_defaults(dict_n = 100)
 (options, args) = oparser.parse_args()
 
+encoding = get_system_encoding()
+
 if args:
 	import re
-	matcher = re.compile(args[0], re.LOCALE | re.IGNORECASE | re.DOTALL).search
+	term = args[0].decode(encoding)
+	matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
 	del re
 else:
 	matcher = lambda s: True
@@ -43,7 +46,6 @@ if not path:
 	raise ConfigurationError()
 dict_n = options.dict_n
 
-encoding = get_system_encoding()
 if sys.stdout.isatty():
 	from format_color import YdpFormatter
 else:
