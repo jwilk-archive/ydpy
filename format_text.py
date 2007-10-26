@@ -111,6 +111,6 @@ class YdpFormatter(object):
 		if node.tag.isalpha():
 			getattr(self, 'parse_%s' % node.tag)(node)
 		else:
-			raise YdpParser.SecurityException
+			raise YdpFormatter.SecurityException(node.tag)
 
 # vim:ts=4 sw=4 noet
