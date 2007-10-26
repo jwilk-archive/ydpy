@@ -2,7 +2,7 @@ import transliterate
 
 class YdpFormatter(object):
 
-	class SecurityException(Exception):
+	class UnhandledTag(Exception):
 		pass
 
 	def parse_body(self, node):
@@ -109,8 +109,11 @@ class YdpFormatter(object):
 
 	def __call__(self, node):
 		if node.tag.isalpha():
-			getattr(self, 'parse_%s' % node.tag)(node)
-		else:
-			raise YdpFormatter.SecurityException(node.tag)
+			try:
+				getattr(self, 'parse_%s' % node.tag)(node)
+				return
+			except AttributeError:
+				pass
+		raise YdpFormatter.UnhandledTag(node.tag)
 
 # vim:ts=4 sw=4 noet
