@@ -6,10 +6,12 @@ from ctypes import CDLL, Structure as CStructure
 from ctypes import c_void_p, c_uint16, c_uint32, c_int, c_char, c_char_p
 from ctypes import POINTER as c_pointer_t, pointer as c_pointer, cast
 from ctypes import pythonapi as libpython, py_object
-from lxml.etree import HTML
+from lxml.etree import HTMLParser, HTML
 
 liby = CDLL('libydpdict.so.1')
 libc = CDLL('libc.so.6')
+
+html_parser = HTMLParser(recover = False, no_network = True)
 
 class YdpWord(object):
 	def __init__(self, owner, nth):
@@ -28,7 +30,7 @@ class YdpWord(object):
 		if result is None:
 			raise libpython.PyErr_SetFromErrno(py_object(OSError))
 		try:
-			return HTML(cast(result, c_char_p).value).find('body' % globals())
+			return HTML(cast(result, c_char_p).value, parser = html_parser).find('body' % globals())
 		finally:
 			libc.free(result)
 

@@ -45,27 +45,27 @@ class YdpFormatter(object):
 			self(subnode)
 		self.write(node.tail)
 
+	def parse_div(self, node):
+		from StringIO import StringIO
+		tmp_file = self._file
+		self._file = StringIO()
+		for subnode in node:
+			self(subnode)
+		result = unicode(self)
+		self._file = tmp_file
+		self.write('\n  ')
+		self.write(result.replace('\n', '\n  '))
+		self.write('\n\n')
+		self._strip = True
+		
 	def parse_span(self, node):
 		style = node.get('style')
-		if style == 'display: block; margin-left: 1em;':
-			from StringIO import StringIO
-			tmp_file = self._file
-			self._file = StringIO()
-			for subnode in node:
-				self(subnode)
-			result = unicode(self)
-			self._file = tmp_file
-			self.write('\n  ')
-			self.write(result.replace('\n', '\n  '))
-			self.write('\n')
-			self._strip = True
-		else:
-			color = self._color_map[style]
-			tmp_color = self.set_color(color)
-			self.write(node.text)
-			for subnode in node:
-				self(subnode)
-			self.set_color(tmp_color)
+		color = self._color_map[style]
+		tmp_color = self.set_color(color)
+		self.write(node.text)
+		for subnode in node:
+			self(subnode)
+		self.set_color(tmp_color)
 		self.write(node.tail)
 	
 	def parse_br(self, node):
