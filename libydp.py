@@ -1,5 +1,3 @@
-#!/usr/bin/python2.5
-
 __all__ = ('CYdpDict',)
 
 from ctypes import CDLL, Structure as CStructure
