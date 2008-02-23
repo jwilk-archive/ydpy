@@ -39,7 +39,7 @@ if args:
 	matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
 	del re
 else:
-	matcher = lambda s: True
+	matcher = id
 
 path = options.path or config.get('Path')
 if not path:
