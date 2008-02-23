@@ -1,4 +1,4 @@
-__all__ = ('CYdpDict',)
+__all__ = ('YdpDict',)
 
 from ctypes import CDLL, Structure as CStructure
 from ctypes import c_void_p, c_uint16, c_uint32, c_int, c_char, c_char_p
