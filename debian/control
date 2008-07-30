@@ -1,0 +1,12 @@
+Source: ydpy
+Section: contrib/text
+Priority: extra
+Maintainer: Jakub Wilk <ubanus@users.sf.net>
+Bugs: mailto:ubanus@users.sf.net
+Build-Depends: debhelper (>= 7), python-support
+Standards-Version: 3.8.0
+
+Package: ydpy
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, libydpdict2
+Description: Command-line interface for Collins and Langenscheidt dictionaries
