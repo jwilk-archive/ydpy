@@ -5,13 +5,19 @@ from os.path import join as path_join
 from locale import getpreferredencoding as get_system_encoding
 from optparse import OptionParser
 import sys
+import errno
 
 
 from libydp import YdpDict
 
 def read_config():
-	with open('/etc/ydpdict.conf') as file:
-		return dict(line.strip().split(None, 1) for line in file)
+	try:
+		with open('/etc/ydpdict.conf') as file:
+			return dict(line.strip().split(None, 1) for line in file)
+	except IOError, ex:
+		if ex.errno == errno.ENOENT:
+			return {}
+		raise
 
 config = read_config()
 
@@ -40,9 +46,7 @@ if args:
 else:
 	matcher = id
 
-path = options.path or config.get('Path')
-if not path:
-	raise ConfigurationError()
+path = options.path or config.get('Path') or '/usr/share/ydpdict'
 dict_n = options.dict_n
 
 if sys.stdout.isatty():
