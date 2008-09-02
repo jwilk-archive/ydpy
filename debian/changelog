@@ -1,9 +1,9 @@
-ydpy (0.1.1) UNRELEASED; urgency=low
+ydpy (0.1.1) unstable; urgency=low
 
   * Add a missing dependency on python-lxml. 
   * Deal with missing config files.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Tue, 02 Sep 2008 17:36:58 +0200
+ -- Jakub Wilk <ubanus@users.sf.net>  Tue, 02 Sep 2008 21:46:38 +0200
 
 ydpy (0.1) unstable; urgency=low
 
