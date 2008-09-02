@@ -8,5 +8,5 @@ Standards-Version: 3.8.0
 
 Package: ydpy
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, libydpdict2
+Depends: ${python:Depends}, ${misc:Depends}, libydpdict2, python-lxml
 Description: Command-line interface for Collins and Langenscheidt dictionaries
