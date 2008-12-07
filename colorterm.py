@@ -1,16 +1,16 @@
 from curses import setupterm, tigetstr, tparm
 
 def fgcolor(i):
-	return __setaf[i]
+    return __setaf[i]
 
 def bgcolor(i):
-	return __setab[i]
+    return __setab[i]
 
 def bold():
-	return __bold
+    return __bold
 
 def reset():
-	return __sgr0
+    return __sgr0
 
 BLACK = 0
 RED = 1
@@ -33,4 +33,4 @@ __setaf = [tparm(__setaf, j) for j in range(8)]
 __setab = tigetstr('setab')
 __setab = [tparm(__setab, j) for j in range(8)]
 
-# vim:ts=4 sw=4
+# vim:ts=4 sw=4 et

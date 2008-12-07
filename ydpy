@@ -11,27 +11,27 @@ import errno
 from libydp import YdpDict
 
 def read_config():
-	try:
-		with open('/etc/ydpdict.conf') as file:
-			return dict(line.strip().split(None, 1) for line in file)
-	except IOError, ex:
-		if ex.errno == errno.ENOENT:
-			return {}
-		raise
+    try:
+        with open('/etc/ydpdict.conf') as file:
+            return dict(line.strip().split(None, 1) for line in file)
+    except IOError, ex:
+        if ex.errno == errno.ENOENT:
+            return {}
+        raise
 
 config = read_config()
 
 DICTIONARIES = \
 (
-	('e', 'en-pl', 'English-Polish', 100),
-	('p', 'pl-en', 'Polish-English', 101),
-	('g', 'de-pl', 'German-Polish',  200),
-	('o', 'pl-de', 'Polish-German',  201),
+    ('e', 'en-pl', 'English-Polish', 100),
+    ('p', 'pl-en', 'Polish-English', 101),
+    ('g', 'de-pl', 'German-Polish',  200),
+    ('o', 'pl-de', 'Polish-German',  201),
 )
 
 oparser = OptionParser()
 for short, long, text, value in DICTIONARIES:
-	oparser.add_option('-%s' % short, '--%s' % long, action = 'store_const', const = value, dest = 'dict_n', help = 'use the %s dictionary' % text)
+    oparser.add_option('-%s' % short, '--%s' % long, action = 'store_const', const = value, dest = 'dict_n', help = 'use the %s dictionary' % text)
 oparser.add_option('-f', '--path', action = 'store', dest = 'path', default = None)
 oparser.set_defaults(dict_n = 100)
 (options, args) = oparser.parse_args()
@@ -39,32 +39,32 @@ oparser.set_defaults(dict_n = 100)
 encoding = get_system_encoding()
 
 if args:
-	import re
-	term = args[0].decode(encoding)
-	matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
-	del re
+    import re
+    term = args[0].decode(encoding)
+    matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
+    del re
 else:
-	matcher = id
+    matcher = id
 
 path = options.path or config.get('Path') or '/usr/share/ydpdict'
 dict_n = options.dict_n
 
 if sys.stdout.isatty():
-	from format_color import YdpFormatter
+    from format_color import YdpFormatter
 else:
-	from format_text import YdpFormatter
+    from format_text import YdpFormatter
 
 formatter = None
 try:
-	with YdpDict(path_join(path, 'dict%03d.dat' % dict_n), path_join(path, 'dict%03d.idx' % dict_n)) as ydpd:
-		for entry in ydpd:
-			if not matcher(entry.name):
-				continue
-			formatter = YdpFormatter(encoding = encoding)
-			formatter(entry.definition)
-			sys.stdout.write(str(formatter))
+    with YdpDict(path_join(path, 'dict%03d.dat' % dict_n), path_join(path, 'dict%03d.idx' % dict_n)) as ydpd:
+        for entry in ydpd:
+            if not matcher(entry.name):
+                continue
+            formatter = YdpFormatter(encoding = encoding)
+            formatter(entry.definition)
+            sys.stdout.write(str(formatter))
 finally:
-	if formatter:
-		print formatter.cleanup()
+    if formatter:
+        print formatter.cleanup()
 
-# vim:ts=4 sw=4 noet
+# vim:ts=4 sw=4 et
