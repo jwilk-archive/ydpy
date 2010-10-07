@@ -1,8 +1,8 @@
 __all__ = ('YdpDict',)
 
-from ctypes import CDLL, Structure as CStructure
-from ctypes import c_void_p, c_uint16, c_int, c_char, c_char_p
-from ctypes import POINTER as c_pointer_t, pointer as c_pointer, cast
+from ctypes import CDLL
+from ctypes import c_void_p, c_int, c_char, c_char_p
+from ctypes import POINTER as c_pointer_t, cast
 from ctypes import pythonapi as libpython, py_object
 from lxml.etree import HTMLParser, HTML
 
