@@ -16,7 +16,7 @@ ydp_get_word.restype = c_char_p
 ydp_close = libydp.ydpdict_close
 ydp_get_count = libydp.ydpdict_get_count
 
-libc = CDLL('libc.so.6')
+libc = CDLL(None)
 
 html_parser = HTMLParser(recover = False, no_network = True)
 
