@@ -1,3 +1,6 @@
+import collections
+from StringIO import StringIO
+
 import transliterate
 
 class YdpFormatter(object):
@@ -46,7 +49,6 @@ class YdpFormatter(object):
         self.write(node.tail)
 
     def parse_div(self, node):
-        from StringIO import StringIO
         tmp_file = self._file
         self._file = StringIO()
         for subnode in node:
@@ -94,11 +96,9 @@ class YdpFormatter(object):
         return self.__class__()
 
     def __init__(self, encoding):
-        from StringIO import StringIO
-        from collections import defaultdict
         self._file = StringIO()
         self._strip = False
-        self._color_map = defaultdict(str)
+        self._color_map = collections.defaultdict(str)
         self._encoding = encoding
 
     def __str__(self):

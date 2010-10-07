@@ -1,4 +1,4 @@
-from curses import setupterm, tigetstr, tparm
+import curses
 
 def fgcolor(i):
     return __setaf[i]
@@ -21,16 +21,16 @@ MAGENTA = 5
 CYAN = 6
 WHITE = 7
 
-setupterm()
+curses.setupterm()
 
-__sgr0 = tigetstr('sgr0')
+__sgr0 = curses.tigetstr('sgr0')
 
-__bold = tigetstr('bold')
+__bold = curses.tigetstr('bold')
 
-__setaf = tigetstr('setaf')
-__setaf = [tparm(__setaf, j) for j in range(8)]
+__setaf = curses.tigetstr('setaf')
+__setaf = [curses.tparm(__setaf, j) for j in range(8)]
 
-__setab = tigetstr('setab')
-__setab = [tparm(__setab, j) for j in range(8)]
+__setab = curses.tigetstr('setab')
+__setab = [curses.tparm(__setab, j) for j in range(8)]
 
 # vim:ts=4 sw=4 et

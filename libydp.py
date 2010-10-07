@@ -1,24 +1,21 @@
 __all__ = ('YdpDict',)
 
-from ctypes import CDLL
-from ctypes import c_void_p, c_int, c_char, c_char_p
-from ctypes import POINTER as c_pointer_t, cast
-from ctypes import pythonapi as libpython, py_object
-from lxml.etree import HTMLParser, HTML
+import ctypes
+import lxml.etree
 
-libydp = CDLL('libydpdict.so.2')
+libydp = ctypes.CDLL('libydpdict.so.2')
 ydp_read_xhtml = libydp.ydpdict_read_xhtml
-ydp_read_xhtml.restype = c_pointer_t(c_char)
+ydp_read_xhtml.restype = ctypes.POINTER(ctypes.c_char)
 ydp_open = libydp.ydpdict_open
-ydp_open.restype = c_void_p
+ydp_open.restype = ctypes.c_void_p
 ydp_get_word = libydp.ydpdict_get_word
-ydp_get_word.restype = c_char_p
+ydp_get_word.restype = ctypes.c_char_p
 ydp_close = libydp.ydpdict_close
 ydp_get_count = libydp.ydpdict_get_count
 
-libc = CDLL(None)
+libc = ctypes.CDLL(None)
 
-html_parser = HTMLParser(recover = False, no_network = True)
+html_parser = lxml.etree.HTMLParser(recover = False, no_network = True)
 
 class YdpWord(object):
     def __init__(self, owner, nth):
@@ -31,24 +28,27 @@ class YdpWord(object):
     
     @property
     def definition(self):
-        result = ydp_read_xhtml(self.owner._pointer, c_int(self.nth))
+        result = ydp_read_xhtml(self.owner._pointer, ctypes.c_int(self.nth))
         if result is None:
-            raise libpython.PyErr_SetFromErrno(py_object(OSError))
+            raise ctypes.pythonapi.PyErr_SetFromErrno(ctypes.py_object(OSError))
         try:
-            return HTML(cast(result, c_char_p).value, parser = html_parser).find('body' % globals())
+            return lxml.etree.HTML(
+                ctypes.cast(result, ctypes.c_char_p).value,
+                parser=html_parser
+            ).find('body' % globals())
         finally:
             libc.free(result)
 
 class YdpDict(object):
 
     def _get_word(self, i):
-        return ydp_get_word(self._pointer, c_int(i))
+        return ydp_get_word(self._pointer, ctypes.c_int(i))
 
     def __init__(self, dat_file_name, idx_file_name):
         self._pointer = ydp_open(dat_file_name, idx_file_name, 1)
         if not self._pointer:
             self._open = False
-            raise libpython.PyErr_SetFromErrno(py_object(OSError))
+            raise ctypes.pythonapi.PyErr_SetFromErrno(ctypes.py_object(OSError))
         self._open = True
         self._word_count = ydp_get_count(self._pointer)
 

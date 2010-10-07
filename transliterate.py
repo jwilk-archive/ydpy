@@ -1,7 +1,5 @@
 # encoding=UTF-8
 
-from codecs import register_error as _register_error
-
 FALLBACK = \
 {
     u'\xa0': '\x20',
@@ -71,6 +69,8 @@ def handler(exception):
     else:
         raise TypeError("Don't know how to handle %s in error callback" % exception.__class__.__name__)
 
-_register_error('transliterate', handler)
+import codecs
+codecs.register_error('transliterate', handler)
+del codecs
 
 # vim:ts=4 sw=4 et

@@ -1,7 +1,7 @@
-from format_text import YdpFormatter as YdpBaseFormatter
 import colorterm
+import format_text
 
-class YdpFormatter(YdpBaseFormatter):
+class YdpFormatter(format_text.YdpFormatter):
 
     def set_color(self, value):
         old_value = self._color
@@ -16,7 +16,7 @@ class YdpFormatter(YdpBaseFormatter):
         return colorterm.reset()
 
     def __init__(self, encoding):
-        YdpBaseFormatter.__init__(self, encoding)
+        format_text.YdpFormatter.__init__(self, encoding)
         self._color = ''
         self._color_map = \
         {

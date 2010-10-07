@@ -1,14 +1,13 @@
 #!/usr/bin/python2.5
 from __future__ import with_statement
 
-from os.path import join as path_join
-from locale import getpreferredencoding as get_system_encoding
-from optparse import OptionParser
-import sys
 import errno
+import locale
+import optparse
+import os.path
+import sys
 
-
-from libydp import YdpDict
+import libydp
 
 def read_config():
     try:
@@ -29,14 +28,14 @@ DICTIONARIES = \
     ('o', 'pl-de', 'Polish-German',  201),
 )
 
-oparser = OptionParser()
+oparser = optparse.OptionParser()
 for short, long, text, value in DICTIONARIES:
     oparser.add_option('-%s' % short, '--%s' % long, action = 'store_const', const = value, dest = 'dict_n', help = 'use the %s dictionary' % text)
 oparser.add_option('-f', '--path', action = 'store', dest = 'path', default = None)
 oparser.set_defaults(dict_n = 100)
 (options, args) = oparser.parse_args()
 
-encoding = get_system_encoding()
+encoding = locale.getpreferredencoding()
 
 if args:
     import re
@@ -56,7 +55,7 @@ else:
 
 formatter = None
 try:
-    with YdpDict(path_join(path, 'dict%03d.dat' % dict_n), path_join(path, 'dict%03d.idx' % dict_n)) as ydpd:
+    with libydp.YdpDict(os.path.join(path, 'dict%03d.dat' % dict_n), os.path.join(path, 'dict%03d.idx' % dict_n)) as ydpd:
         for entry in ydpd:
             if not matcher(entry.name):
                 continue
