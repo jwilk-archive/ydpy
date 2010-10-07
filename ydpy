@@ -2,9 +2,9 @@
 
 from __future__ import with_statement
 
+import argparse
 import errno
 import locale
-import optparse
 import os.path
 import sys
 
@@ -29,18 +29,19 @@ DICTIONARIES = \
     ('o', 'pl-de', 'Polish-German',  201),
 )
 
-oparser = optparse.OptionParser()
+parser = argparse.ArgumentParser()
 for short, long, text, value in DICTIONARIES:
-    oparser.add_option('-%s' % short, '--%s' % long, action = 'store_const', const = value, dest = 'dict_n', help = 'use the %s dictionary' % text)
-oparser.add_option('-f', '--path', action = 'store', dest = 'path', default = None)
-oparser.set_defaults(dict_n = 100)
-(options, args) = oparser.parse_args()
+    parser.add_argument('-%s' % short, '--%s' % long, action='store_const', const=value, dest='dict_n', help='use the %s dictionary' % text)
+parser.add_argument('-f', '--path', action='store', help='dictionary data directory')
+parser.add_argument('term', metavar='SEARCH-TERM', nargs='?')
+parser.set_defaults(dict_n=100)
+options = parser.parse_args()
 
 encoding = locale.getpreferredencoding()
 
-if args:
+if options.term:
     import re
-    term = args[0].decode(encoding)
+    term = options.term.decode(encoding)
     matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
     del re
 else:
