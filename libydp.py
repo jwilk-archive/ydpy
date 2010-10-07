@@ -35,7 +35,7 @@ class YdpWord(object):
             return lxml.etree.HTML(
                 ctypes.cast(result, ctypes.c_char_p).value,
                 parser=html_parser
-            ).find('body' % globals())
+            ).find('body')
         finally:
             libc.free(result)
 
