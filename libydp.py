@@ -20,8 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__all__ = ('YdpDict',)
-
 import ctypes
 import lxml.etree
 
@@ -89,5 +87,7 @@ class YdpDict(object):
     def close(self):
         if self._open:
             ydp_close(self._pointer)
+
+__all__ = ['YdpDict']
 
 # vim:ts=4 sw=4 et
