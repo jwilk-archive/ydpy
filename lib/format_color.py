@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import colorterm
-import format_text
+from . import colorterm
+from . import format_text
 
 class YdpFormatter(format_text.YdpFormatter):
 

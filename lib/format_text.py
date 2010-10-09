@@ -23,7 +23,7 @@
 import collections
 from StringIO import StringIO
 
-import transliterate
+from . import transliterate
 
 class YdpFormatter(object):
 

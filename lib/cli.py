@@ -29,9 +29,9 @@ import os.path
 import sys
 import re
 
-import libydp
-import format_color
-import format_text
+from . import libydp
+from . import format_color
+from . import format_text
 
 def read_config():
     try:
