@@ -56,8 +56,14 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def __init__(self, *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
-        for short, long, text, value in DICTIONARIES:
-            self.add_argument('-%s' % short, '--%s' % long, action='store_const', const=value, dest='dict_n', help='use the %s dictionary' % text)
+        for short_name, long_name, text, value in DICTIONARIES:
+            self.add_argument(
+                '-%s' % short_name,
+                '--%s' % long_name,
+                action='store_const', const=value,
+                dest='dict_n',
+                help='use the %s dictionary' % text
+            )
         self.add_argument('-f', '--path', action='store', help='dictionary data directory')
         self.add_argument('term', metavar='SEARCH-TERM', nargs='?')
         self.set_defaults(dict_n=100)
