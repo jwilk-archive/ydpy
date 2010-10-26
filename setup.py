@@ -58,7 +58,7 @@ distutils.core.setup(
     url = 'http://jwilk.net/software/ydpy',
     author = 'Jakub Wilk',
     author_email = 'jwilk@jwilk.net',
-    packages = ['lib'],
+    packages = ['ydpy'],
     package_dir = dict(ydpy='lib'),
     scripts = ['ydpy'],
 )
