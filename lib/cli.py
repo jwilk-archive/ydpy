@@ -34,13 +34,18 @@ from . import format_color
 from . import format_text
 
 def read_config():
+    data = {}
     try:
-        with open('/etc/ydpdict.conf') as file:
-            return dict(line.strip().split(None, 1) for line in file)
+        with open('/etc/ydpdict.conf', 'rb') as file:
+            for line in file:
+                key, value = line.strip().split(None, 1)
+                key = key.decode('ASCII')
+                data[key] = value
     except IOError, ex:
         if ex.errno == errno.ENOENT:
             return {}
         raise
+    return data
 
 DICTIONARIES = \
 (
@@ -68,6 +73,16 @@ class ArgumentParser(argparse.ArgumentParser):
         self.add_argument('term', metavar='SEARCH-TERM', nargs='?')
         self.set_defaults(dict_n=100)
 
+if str != unicode:
+    # Python 2
+    def write_bytes(file, bytestring):
+        file.write(bytestring)
+else:
+    # Python 3
+    def write_bytes(file, bytestring):
+        file.flush()
+        file.buffer.write(bytestring)
+
 def main():
     options = ArgumentParser().parse_args()
     encoding = locale.getpreferredencoding()
@@ -77,6 +92,8 @@ def main():
     else:
         matcher = id
     path = options.path or config.get('Path') or '/usr/share/ydpdict'
+    if isinstance(path, unicode):
+        path = path.encode(sys.getfilesystemencoding())
     dict_n = options.dict_n
     if sys.stdout.isatty():
         YdpFormatter = format_color.YdpFormatter
@@ -84,13 +101,14 @@ def main():
         YdpFormatter = format_text.YdpFormatter
     formatter = None
     try:
-        with libydp.YdpDict(os.path.join(path, 'dict%03d.dat' % dict_n), os.path.join(path, 'dict%03d.idx' % dict_n)) as ydpd:
+        with libydp.YdpDict(os.path.join(path, ('dict%03d.dat' % dict_n).encode()), os.path.join(path, ('dict%03d.idx' % dict_n).encode())) as ydpd:
             for entry in ydpd:
                 if not matcher(entry.name):
                     continue
                 formatter = YdpFormatter(encoding=encoding)
                 formatter(entry.definition)
-                sys.stdout.write(str(formatter))
+                bytestring = formatter.encode()
+                write_bytes(sys.stdout, bytestring)
     finally:
         if formatter:
             print formatter.cleanup()

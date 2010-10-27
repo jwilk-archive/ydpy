@@ -45,14 +45,26 @@ WHITE = 7
 
 curses.setupterm()
 
-__sgr0 = curses.tigetstr('sgr0')
+try:
+    curses.tparm('x'.encode())
+except TypeError:
+    # Python 3 bug. Let's work around it.
+    def monkeypatch(original_tparm=curses.tparm):
+        def tparm(arg, *args):
+            arg = arg.decode()
+            return original_tparm(arg, *args)
+        curses.tparm = tparm
+    monkeypatch()
+    del monkeypatch
 
-__bold = curses.tigetstr('bold')
+__sgr0 = curses.tigetstr('sgr0').decode('ASCII')
+
+__bold = curses.tigetstr('bold').decode('ASCII')
 
 __setaf = curses.tigetstr('setaf')
-__setaf = [curses.tparm(__setaf, j) for j in range(8)]
+__setaf = [curses.tparm(__setaf, j).decode('ASCII') for j in range(8)]
 
 __setab = curses.tigetstr('setab')
-__setab = [curses.tparm(__setab, j) for j in range(8)]
+__setab = [curses.tparm(__setab, j).decode('ASCII') for j in range(8)]
 
 # vim:ts=4 sw=4 et

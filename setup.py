@@ -39,13 +39,20 @@ Natural Language :: Polish
 Operating System :: POSIX
 Programming Language :: Python
 Programming Language :: Python :: 2
+Programming Language :: Python :: 3
 Topic :: Text Processing :: Linguistic
 '''.strip().split('\n')
 
 import distutils.core
+import distutils.command.build_py
 import os
 
 from lib import version
+
+try:
+    build_py = distutils.command.build_py.build_py_2to3
+except AttributeError:
+    build_py = distutils.command.build_py.build_py
 
 os.putenv('TAR_OPTIONS', '--owner root --group root --mode a+rX')
 distutils.core.setup(
@@ -61,6 +68,7 @@ distutils.core.setup(
     packages = ['ydpy'],
     package_dir = dict(ydpy='lib'),
     scripts = ['ydpy'],
+    cmdclass = dict(build_py=build_py)
 )
 
 # vim:ts=4 sw=4 et

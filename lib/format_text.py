@@ -112,7 +112,7 @@ class YdpFormatter(object):
         pass
 
     def cleanup(self):
-        return ''
+        return ''.encode()
 
     def fork(self):
         return self.__class__()
@@ -123,11 +123,20 @@ class YdpFormatter(object):
         self._color_map = collections.defaultdict(str)
         self._encoding = encoding
 
-    def __str__(self):
-        return unicode(self).encode(self._encoding, 'transliterate')
-
-    def __unicode__(self):
-        return self._file.getvalue()
+    if str != unicode:
+        # Python 2
+        def __unicode__(self):
+            return self._file.getvalue()
+        def __str__(self):
+            return unicode(self).encode(self._encoding, 'transliterate')
+        def encode(self):
+            return str(self)
+    else:
+        # Python 3
+        def __str__(self):
+            return self._file.getvalue()
+        def encode(self):
+            return str(self).encode(self._encoding, 'transliterate')
 
     def __call__(self, node):
         if node.tag.isalpha():
