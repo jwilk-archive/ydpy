@@ -87,7 +87,9 @@ def main():
     options = ArgumentParser().parse_args()
     encoding = locale.getpreferredencoding()
     if options.term:
-        term = options.term.decode(encoding)
+        term = options.term
+        if not isinstance(term, unicode):
+            term = term.decode(encoding)
         matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
     else:
         matcher = id
