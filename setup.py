@@ -45,7 +45,6 @@ Topic :: Text Processing :: Linguistic
 
 import distutils.core
 import distutils.command.build_py
-import os
 
 from lib import version
 
@@ -54,7 +53,6 @@ try:
 except AttributeError:
     build_py = distutils.command.build_py.build_py
 
-os.putenv('TAR_OPTIONS', '--owner root --group root --mode a+rX')
 distutils.core.setup(
     name = 'ydpy',
     version = version.__version__,
