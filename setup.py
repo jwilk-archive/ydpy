@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # encoding=UTF-8
 
-# Copyright © 2010 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2010, 2012 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -41,7 +41,7 @@ Programming Language :: Python
 Programming Language :: Python :: 2
 Programming Language :: Python :: 3
 Topic :: Text Processing :: Linguistic
-'''.strip().split('\n')
+'''.strip().splitlines()
 
 import distutils.core
 import distutils.command.build_py
