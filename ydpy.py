@@ -1,5 +1,5 @@
 '''
-Helper module that allows to use the command-line tools without installing it.
+helper module that allows using the command-line tool without installing it
 '''
 
 from lib import cli
