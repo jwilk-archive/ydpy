@@ -21,6 +21,8 @@
 # SOFTWARE.
 
 import curses
+import functools
+import re
 
 def fgcolor(i):
     return __setaf[i]
@@ -57,14 +59,22 @@ except TypeError:
     monkeypatch()
     del monkeypatch
 
-__sgr0 = curses.tigetstr('sgr0').decode('ASCII')
+_strip_delay = functools.partial(re.compile('[$]<[0-9]+>'.encode()).sub, '')
 
-__bold = curses.tigetstr('bold').decode('ASCII')
+empty_bytes = ''.encode()
 
-__setaf = curses.tigetstr('setaf')
-__setaf = [curses.tparm(__setaf, j).decode('ASCII') for j in range(8)]
+__sgr0 = curses.tigetstr('sgr0') or empty_bytes
+__sgr0 = _strip_delay(__sgr0).decode()
 
-__setab = curses.tigetstr('setab')
-__setab = [curses.tparm(__setab, j).decode('ASCII') for j in range(8)]
+__bold = curses.tigetstr('bold') or empty_bytes
+__bold = _strip_delay(__bold).decode()
+
+__setaf = curses.tigetstr('setaf') or empty_bytes
+__setaf = _strip_delay(__setaf)
+__setaf = [curses.tparm(__setaf, j).decode() for j in range(8)]
+
+__setab = curses.tigetstr('setab') or empty_bytes
+__setab = _strip_delay(__setab)
+__setab = [curses.tparm(__setab, j).decode() for j in range(8)]
 
 # vim:ts=4 sw=4 et
