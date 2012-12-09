@@ -25,16 +25,16 @@ import functools
 import re
 
 def fgcolor(i):
-    return __setaf[i]
+    return _setaf[i]
 
 def bgcolor(i):
-    return __setab[i]
+    return _setab[i]
 
 def bold():
-    return __bold
+    return _bold
 
 def reset():
-    return __sgr0
+    return _sgr0
 
 BLACK = 0
 RED = 1
@@ -63,18 +63,18 @@ _strip_delay = functools.partial(re.compile('[$]<[0-9]+>'.encode()).sub, '')
 
 empty_bytes = ''.encode()
 
-__sgr0 = curses.tigetstr('sgr0') or empty_bytes
-__sgr0 = _strip_delay(__sgr0).decode()
+_sgr0 = curses.tigetstr('sgr0') or empty_bytes
+_sgr0 = _strip_delay(_sgr0).decode()
 
-__bold = curses.tigetstr('bold') or empty_bytes
-__bold = _strip_delay(__bold).decode()
+_bold = curses.tigetstr('bold') or empty_bytes
+_bold = _strip_delay(_bold).decode()
 
-__setaf = curses.tigetstr('setaf') or empty_bytes
-__setaf = _strip_delay(__setaf)
-__setaf = [curses.tparm(__setaf, j).decode() for j in range(8)]
+_setaf = curses.tigetstr('setaf') or empty_bytes
+_setaf = _strip_delay(_setaf)
+_setaf = [curses.tparm(_setaf, j).decode() for j in range(8)]
 
-__setab = curses.tigetstr('setab') or empty_bytes
-__setab = _strip_delay(__setab)
-__setab = [curses.tparm(__setab, j).decode() for j in range(8)]
+_setab = curses.tigetstr('setab') or empty_bytes
+_setab = _strip_delay(_setab)
+_setab = [curses.tparm(_setab, j).decode() for j in range(8)]
 
 # vim:ts=4 sw=4 et
