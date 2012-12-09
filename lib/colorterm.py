@@ -22,6 +22,7 @@
 
 import curses
 import functools
+import os
 import re
 
 def fgcolor(i):
@@ -45,7 +46,11 @@ MAGENTA = 5
 CYAN = 6
 WHITE = 7
 
-curses.setupterm()
+try:
+    curses.setupterm()
+except curses.error:
+    os.putenv('TERM', 'dumb')
+    curses.setupterm()
 
 try:
     curses.tparm('x'.encode())
