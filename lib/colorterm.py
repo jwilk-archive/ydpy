@@ -59,21 +59,22 @@ except TypeError:
     monkeypatch()
     del monkeypatch
 
-_strip_delay = functools.partial(re.compile('[$]<[0-9]+>'.encode()).sub, '')
+_empty_bytes = ''.encode()
 
-empty_bytes = ''.encode()
+_strip_delay = functools.partial(re.compile('[$]<[0-9]+>'.encode()).sub, _empty_bytes)
 
-_sgr0 = curses.tigetstr('sgr0') or empty_bytes
+
+_sgr0 = curses.tigetstr('sgr0') or _empty_bytes
 _sgr0 = _strip_delay(_sgr0).decode()
 
-_bold = curses.tigetstr('bold') or empty_bytes
+_bold = curses.tigetstr('bold') or _empty_bytes
 _bold = _strip_delay(_bold).decode()
 
-_setaf = curses.tigetstr('setaf') or empty_bytes
+_setaf = curses.tigetstr('setaf') or _empty_bytes
 _setaf = _strip_delay(_setaf)
 _setaf = [curses.tparm(_setaf, j).decode() for j in range(8)]
 
-_setab = curses.tigetstr('setab') or empty_bytes
+_setab = curses.tigetstr('setab') or _empty_bytes
 _setab = _strip_delay(_setab)
 _setab = [curses.tparm(_setab, j).decode() for j in range(8)]
 
