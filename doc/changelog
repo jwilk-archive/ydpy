@@ -2,7 +2,7 @@ ydpy (0.3.3) UNRELEASED; urgency=low
 
   * Fix stripping delay annotations from terminfo capabilities.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 11 May 2013 16:21:47 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 07 Oct 2013 12:38:50 +0200
 
 ydpy (0.3.2) unstable; urgency=low
 

@@ -66,7 +66,10 @@ except TypeError:
 
 _empty_bytes = ''.encode()
 
-_strip_delay = functools.partial(re.compile('[$]<[0-9]+[/*]*>'.encode()).sub, _empty_bytes)
+_strip_delay = functools.partial(
+    re.compile('[$]<([0-9]*[.])?[0-9]+([/*]|[*][/])?>'.encode()).sub,
+    _empty_bytes
+)
 
 
 _sgr0 = curses.tigetstr('sgr0') or _empty_bytes
