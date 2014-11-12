@@ -41,11 +41,11 @@ class YdpWord(object):
     def __init__(self, owner, nth):
         self.owner = owner
         self.nth = nth
-    
+
     @property
     def name(self):
         return self.owner._get_word(self.nth).decode('UTF-8')
-    
+
     @property
     def definition(self):
         result = ydp_read_xhtml(self.owner._pointer, ctypes.c_int(self.nth))
@@ -74,7 +74,7 @@ class YdpDict(object):
 
     def __enter__(self):
         return self
-    
+
     def __exit__(self, *exc_info):
         self.close()
 
@@ -83,7 +83,7 @@ class YdpDict(object):
 
     def __getitem__(self, nth):
         return YdpWord(self, nth)
-            
+
     def close(self):
         if self._open:
             ydp_close(self._pointer)

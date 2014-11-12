@@ -42,7 +42,7 @@ class YdpFormatter(object):
             self(subnode)
         self.write('\n')
         self.write(node.tail)
-    
+
     def parse_a(self, node):
         self.write(node.text)
         for subnode in node:
@@ -56,13 +56,13 @@ class YdpFormatter(object):
             self(subnode)
         self.set_color(tmp_color)
         self.write(node.tail)
-    
+
     def parse_i(self, node):
         self.write(node.text)
         for subnode in node:
             self(subnode)
         self.write(node.tail)
-    
+
     def parse_sup(self, node):
         self.write('^')
         self.write(node.text)
@@ -81,7 +81,7 @@ class YdpFormatter(object):
         self.write(result.replace('\n', '\n  '))
         self.write('\n\n')
         self._strip = True
-        
+
     def parse_span(self, node):
         style = node.get('style')
         color = self._color_map[style]
@@ -91,7 +91,7 @@ class YdpFormatter(object):
             self(subnode)
         self.set_color(tmp_color)
         self.write(node.tail)
-    
+
     def parse_br(self, node):
         self.write('\n')
         self.write(node.tail)
