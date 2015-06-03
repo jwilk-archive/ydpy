@@ -1,6 +1,6 @@
 # encoding=UTF-8
 
-# Copyright © 2007, 2008, 2009, 2010 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2007-2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -19,8 +19,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-from __future__ import with_statement
 
 import argparse
 import errno
