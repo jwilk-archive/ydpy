@@ -86,4 +86,4 @@ _setab = curses.tigetstr('setab') or _empty_bytes
 _setab = _strip_delay(_setab)
 _setab = [curses.tparm(_setab, j).decode() for j in range(8)]
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

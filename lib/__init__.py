@@ -25,4 +25,4 @@ import sys
 if sys.version_info < (2, 6):
     raise RuntimeError('Python >= 2.6 is required')
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et
