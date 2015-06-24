@@ -48,8 +48,8 @@ def read_config():
 DICTIONARIES = (
     ('e', 'en-pl', 'English-Polish', 100),
     ('p', 'pl-en', 'Polish-English', 101),
-    ('g', 'de-pl', 'German-Polish',  200),
-    ('o', 'pl-de', 'Polish-German',  201),
+    ('g', 'de-pl', 'German-Polish', 200),
+    ('o', 'pl-de', 'Polish-German', 201),
 )
 
 config = read_config()

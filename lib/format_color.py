@@ -28,7 +28,7 @@ class YdpFormatter(format_text.YdpFormatter):
     def set_color(self, value):
         old_value = self._color
         self._color = value
-        self.write(colorterm.reset() + value, strip = False)
+        self.write(colorterm.reset() + value, strip=False)
         return old_value
 
     def set_bold_color(self):

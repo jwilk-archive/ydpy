@@ -35,7 +35,7 @@ ydp_get_count = libydp.ydpdict_get_count
 
 libc = ctypes.CDLL(None)
 
-html_parser = lxml.etree.HTMLParser(recover = False, no_network = True)
+html_parser = lxml.etree.HTMLParser(recover=False, no_network=True)
 
 class YdpWord(object):
     def __init__(self, owner, nth):

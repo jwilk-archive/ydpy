@@ -97,7 +97,7 @@ class YdpFormatter(object):
         self.write(node.tail)
         self._strip = True
 
-    def write(self, value, strip = True):
+    def write(self, value, strip=True):
         value = value or ''
         if self._strip and strip:
             if value:
