@@ -84,7 +84,11 @@ FALLBACK = {
 
 def handler(exception):
     if isinstance(exception, (UnicodeEncodeError, UnicodeTranslateError)):
-        return u''.join(FALLBACK.get(ch, u'<?>') for ch in exception.object[exception.start:exception.end]), exception.end
+        s = u''.join(
+            FALLBACK.get(ch, u'<?>')
+            for ch in exception.object[exception.start:exception.end]
+        )
+        return s, exception.end
     else:
         raise TypeError("Don't know how to handle %s in error callback" % exception.__class__.__name__)
 
