@@ -54,19 +54,19 @@ except AttributeError:
     build_py = distutils.command.build_py.build_py
 
 distutils.core.setup(
-    name = 'ydpy',
-    version = version.__version__,
-    license = 'MIT',
-    description = 'command-line interface for Collins and Langenscheidt dictionaries',
-    long_description = __doc__.strip(),
-    classifiers = classifiers,
-    url = 'http://jwilk.net/software/ydpy',
-    author = 'Jakub Wilk',
-    author_email = 'jwilk@jwilk.net',
-    packages = ['ydpy'],
-    package_dir = dict(ydpy='lib'),
-    scripts = ['ydpy'],
-    cmdclass = dict(build_py=build_py)
+    name='ydpy',
+    version=version.__version__,
+    license='MIT',
+    description='command-line interface for Collins and Langenscheidt dictionaries',
+    long_description=__doc__.strip(),
+    classifiers=classifiers,
+    url='http://jwilk.net/software/ydpy',
+    author='Jakub Wilk',
+    author_email='jwilk@jwilk.net',
+    packages=['ydpy'],
+    package_dir=dict(ydpy='lib'),
+    scripts=['ydpy'],
+    cmdclass=dict(build_py=build_py)
 )
 
 # vim:ts=4 sts=4 sw=4 et
