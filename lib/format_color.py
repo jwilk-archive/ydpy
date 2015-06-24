@@ -40,8 +40,7 @@ class YdpFormatter(format_text.YdpFormatter):
     def __init__(self, encoding):
         format_text.YdpFormatter.__init__(self, encoding)
         self._color = ''
-        self._color_map = \
-        {
+        self._color_map = {
             'color: red;': colorterm.fgcolor(colorterm.RED),
             'color: green;': colorterm.fgcolor(colorterm.GREEN),
             'color: blue;': colorterm.fgcolor(colorterm.BLUE),

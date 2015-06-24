@@ -45,8 +45,7 @@ def read_config():
         raise
     return data
 
-DICTIONARIES = \
-(
+DICTIONARIES = (
     ('e', 'en-pl', 'English-Polish', 100),
     ('p', 'pl-en', 'Polish-English', 101),
     ('g', 'de-pl', 'German-Polish',  200),
