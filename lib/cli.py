@@ -100,9 +100,11 @@ def main():
         YdpFormatter = format_text.YdpFormatter
     formatter = None
     try:
-        dat_path = os.path.join(path, 'dict{0:03}.dat'.format(dict_n).encode())
-        idx_path = os.path.join(path, 'dict{0:03}.idx'.format(dict_n).encode())
-        with libydp.YdpDict(dat_path, idx_path) as ydpd:
+        paths = [
+            os.path.join(path, 'dict{n:03}.{ext}'.format(n=dict_n, ext=ext).encode())
+            for ext in ['dat', 'idx']
+        ]
+        with libydp.YdpDict(*paths) as ydpd:
             for entry in ydpd:
                 if not matcher(entry.name):
                     continue
