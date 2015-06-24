@@ -141,7 +141,7 @@ class YdpFormatter(object):
     def __call__(self, node):
         if node.tag.isalpha():
             try:
-                getattr(self, 'parse_%s' % node.tag)(node)
+                getattr(self, 'parse_{tag}'.format(tag=node.tag))(node)
                 return
             except AttributeError:
                 pass

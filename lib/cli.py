@@ -58,13 +58,13 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def __init__(self, *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
-        for short_name, long_name, text, value in DICTIONARIES:
+        for short_name, long_name, name, value in DICTIONARIES:
             self.add_argument(
-                '-%s' % short_name,
-                '--%s' % long_name,
+                '-{c}'.format(c=short_name),
+                '--{opt}'.format(opt=long_name),
                 action='store_const', const=value,
                 dest='dict_n',
-                help='use the %s dictionary' % text
+                help='use the {name} dictionary'.format(name=name),
             )
         self.add_argument('-f', '--path', action='store', help='dictionary data directory')
         self.add_argument('term', metavar='SEARCH-TERM', nargs='?')
@@ -100,8 +100,8 @@ def main():
         YdpFormatter = format_text.YdpFormatter
     formatter = None
     try:
-        dat_path = os.path.join(path, ('dict%03d.dat' % dict_n).encode())
-        idx_path = os.path.join(path, ('dict%03d.idx' % dict_n).encode())
+        dat_path = os.path.join(path, 'dict{0:03}.dat'.format(dict_n).encode())
+        idx_path = os.path.join(path, 'dict{0:03}.idx'.format(dict_n).encode())
         with libydp.YdpDict(dat_path, idx_path) as ydpd:
             for entry in ydpd:
                 if not matcher(entry.name):
