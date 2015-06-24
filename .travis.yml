@@ -1,0 +1,12 @@
+language: python
+python:
+- "2.6"
+- "2.7"
+- "3.2"
+- "3.3"
+- "3.4"
+script:
+- python setup.py build
+- python -m compileall -f build
+
+# vim:ts=2 sts=2 sw=2 et
