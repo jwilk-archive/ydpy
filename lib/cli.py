@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from __future__ import print_function
+
 import argparse
 import errno
 import locale
@@ -114,6 +116,6 @@ def main():
                 write_bytes(sys.stdout, bytestring)
     finally:
         if formatter:
-            print formatter.cleanup()
+            print(formatter.cleanup())
 
 # vim:ts=4 sts=4 sw=4 et
