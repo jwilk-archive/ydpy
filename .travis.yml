@@ -5,6 +5,7 @@ python:
 - "3.2"
 - "3.3"
 - "3.4"
+- nightly
 script:
 - python setup.py build
 - python -m compileall -f build
