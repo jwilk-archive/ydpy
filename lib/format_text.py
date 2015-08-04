@@ -114,9 +114,6 @@ class YdpFormatter(object):
     def cleanup(self):
         return ''.encode()
 
-    def fork(self):
-        return self.__class__()
-
     def __init__(self, encoding):
         self._file = StringIO()
         self._strip = False
