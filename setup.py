@@ -26,7 +26,7 @@ and/or Langenscheidt German-Polish/Polish-German dictionaries distributed by
 `Young Digital Planet`_.
 
 .. _Young Digital Planet:
-   http://ydp.com.pl/
+   http://www.ydp.pl/
 '''
 
 classifiers = '''
