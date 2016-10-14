@@ -24,6 +24,7 @@ import collections
 from StringIO import StringIO
 
 from . import transliterate
+del transliterate  # Hi, pyflakes!
 
 class YdpFormatter(object):
 
