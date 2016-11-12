@@ -7,7 +7,7 @@ python:
 - "3.4"
 - "3.5"
 - "3.6-dev"
-- nightly
+- "3.7-dev"
 script:
 - python setup.py build
 - python -m compileall -f build
