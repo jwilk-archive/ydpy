@@ -72,7 +72,7 @@ class ArgumentParser(argparse.ArgumentParser):
         self.add_argument('term', metavar='SEARCH-TERM', nargs='?')
         self.set_defaults(dict_n=100)
 
-if str != unicode:
+if str is bytes:
     # Python 2
     def write_bytes(file, bytestring):
         file.write(bytestring)

@@ -121,7 +121,7 @@ class YdpFormatter(object):
         self._color_map = collections.defaultdict(str)
         self._encoding = encoding
 
-    if str != unicode:
+    if str is bytes:
         # Python 2
         def __unicode__(self):
             return self._file.getvalue()
