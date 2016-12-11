@@ -79,7 +79,7 @@ class YdpDict(object):
         self.close()
 
     def __iter__(self):
-        return (self[i] for i in xrange(self._word_count))
+        return (self[i] for i in range(self._word_count))
 
     def __getitem__(self, nth):
         return YdpWord(self, nth)

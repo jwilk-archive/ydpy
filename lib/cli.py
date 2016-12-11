@@ -20,8 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from __future__ import print_function
-
 import argparse
 import errno
 import locale
@@ -72,28 +70,16 @@ class ArgumentParser(argparse.ArgumentParser):
         self.add_argument('term', metavar='SEARCH-TERM', nargs='?')
         self.set_defaults(dict_n=100)
 
-if str is bytes:
-    # Python 2
-    def write_bytes(file, bytestring):
-        file.write(bytestring)
-else:
-    # Python 3
-    def write_bytes(file, bytestring):
-        file.flush()
-        file.buffer.write(bytestring)
-
 def main():
     options = ArgumentParser().parse_args()
     encoding = locale.getpreferredencoding()
     if options.term:
         term = options.term
-        if not isinstance(term, unicode):
-            term = term.decode(encoding)
         matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
     else:
         matcher = id
     path = options.path or config.get('Path') or '/usr/share/ydpdict'
-    if isinstance(path, unicode):
+    if isinstance(path, str):
         path = path.encode(sys.getfilesystemencoding())
     dict_n = options.dict_n
     if sys.stdout.isatty():
@@ -113,7 +99,8 @@ def main():
                 formatter = YdpFormatter(encoding=encoding)
                 formatter(entry.definition)
                 bytestring = formatter.encode()
-                write_bytes(sys.stdout, bytestring)
+                sys.stdout.flush()
+                sys.stdout.buffer.write(bytestring)
     finally:
         if formatter:
             print(formatter.cleanup())

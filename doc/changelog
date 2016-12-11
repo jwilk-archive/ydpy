@@ -1,6 +1,6 @@
 ydpy (0.3.3) UNRELEASED; urgency=low
 
-  * Drop support for Python 2.5.
+  * Drop support for Python 2.X.
   * Fix stripping delay annotations from terminfo capabilities.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Wed, 03 Jun 2015 19:48:44 +0200

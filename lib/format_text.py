@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import collections
-from StringIO import StringIO
+import io
 
 from . import transliterate
 del transliterate  # Hi, pyflakes!
@@ -73,10 +73,10 @@ class YdpFormatter(object):
 
     def parse_div(self, node):
         tmp_file = self._file
-        self._file = StringIO()
+        self._file = io.StringIO()
         for subnode in node:
             self(subnode)
-        result = unicode(self)
+        result = str(self)
         self._file = tmp_file
         self.write('\n  ')
         self.write(result.replace('\n', '\n  '))
@@ -116,25 +116,16 @@ class YdpFormatter(object):
         return ''.encode()
 
     def __init__(self, encoding):
-        self._file = StringIO()
+        self._file = io.StringIO()
         self._strip = False
         self._color_map = collections.defaultdict(str)
         self._encoding = encoding
 
-    if str is bytes:
-        # Python 2
-        def __unicode__(self):
-            return self._file.getvalue()
-        def __str__(self):
-            return unicode(self).encode(self._encoding, 'transliterate')
-        def encode(self):
-            return str(self)
-    else:
-        # Python 3
-        def __str__(self):
-            return self._file.getvalue()
-        def encode(self):
-            return str(self).encode(self._encoding, 'transliterate')
+    def __str__(self):
+        return self._file.getvalue()
+
+    def encode(self):
+        return str(self).encode(self._encoding, 'transliterate')
 
     def __call__(self, node):
         if node.tag.isalpha():
