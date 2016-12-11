@@ -9,7 +9,6 @@ python:
 - "3.6-dev"
 - "3.7-dev"
 script:
-- python setup.py build
-- python -m compileall -f build
+- python -m compileall -f .
 
 # vim:ts=2 sts=2 sw=2 et
