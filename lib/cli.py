@@ -30,6 +30,7 @@ import re
 from . import libydp
 from . import format_color
 from . import format_text
+from . import version
 
 def read_config():
     data = {}
@@ -54,10 +55,30 @@ DICTIONARIES = (
 
 config = read_config()
 
+class VersionAction(argparse.Action):
+    '''
+    argparse --version action
+    '''
+
+    def __init__(self, option_strings, dest=argparse.SUPPRESS):
+        super(VersionAction, self).__init__(
+            option_strings=option_strings,
+            dest=dest,
+            nargs=0,
+            help="show program's version information and exit"
+        )
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        print('{prog} {0}'.format(version.__version__, prog=parser.prog))
+        print('+ Python {0}.{1}.{2}'.format(*sys.version_info))
+        print('+ lxml {0}'.format(libydp.lxml.etree.__version__))
+        parser.exit()
+
 class ArgumentParser(argparse.ArgumentParser):
 
     def __init__(self, *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
+        self.add_argument('--version', action=VersionAction)
         for short_name, long_name, name, value in DICTIONARIES:
             self.add_argument(
                 '-{c}'.format(c=short_name),
