@@ -49,6 +49,7 @@ cd "$sourceroot"/*
 find -name '__pycache__' | xargs rm -rf
 rm .travis.yml
 rm private/build-source-tarball
+rm README.rst  # shipped as doc/README
 mv LICENSE doc/
 cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
