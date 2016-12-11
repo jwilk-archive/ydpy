@@ -50,7 +50,6 @@ find -name '__pycache__' | xargs rm -rf
 rm .travis.yml
 rm private/build-source-tarball
 mv LICENSE doc/
-find . -empty -delete
 cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
 rm -r "$sourceroot"
