@@ -55,7 +55,8 @@ except curses.error:
 try:
     curses.tparm('x'.encode())
 except TypeError:
-    # Python 3 bug. Let's work around it.
+    # curses.tparm() is broken in early versions of Python 3.2:
+    # https://bugs.python.org/issue10570
     def monkeypatch(original_tparm=curses.tparm):
         def tparm(arg, *args):
             arg = arg.decode()
