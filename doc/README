@@ -1,0 +1,36 @@
+Overview
+========
+
+*ydpy* is a command-line interface to the Collins
+English-Polish/Polish-English and Langenscheidt German-Polish/Polish-German
+dictionaries distributed by `Young Digital Planet`_.
+
+.. _Young Digital Planet: http://www.ydp.pl/
+
+Example
+=======
+
+.. code:: console
+
+   $ ydpy --pl-en '^słownik$'
+   słowni|k (-ka -ki) (instr sg  -kiem)
+   m
+   (książka) dictionary
+   (słownictwo) vocabulary
+   słownik polsko-angielski a Polish-English dictionary
+
+Prerequisites
+=============
+
+* Python ≥ 3.2
+
+* `lxml`_
+
+* `libydpdict`_
+  
+.. _lxml:
+   http://lxml.de/
+.. _libydpdict:
+   http://toxygen.net/ydpdict/
+
+.. vim:ft=rst ts=3 sts=3 sw=3 et
