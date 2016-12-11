@@ -80,7 +80,8 @@ def main():
         matcher = id
     path = options.path or config.get('Path') or '/usr/share/ydpdict'
     if isinstance(path, str):
-        path = path.encode(sys.getfilesystemencoding())
+        path = path.encode(sys.getfilesystemencoding(), 'surrogateescape')
+        # TODO: Use fsencode() when Python 3.2 is no longer supported.
     dict_n = options.dict_n
     if sys.stdout.isatty():
         YdpFormatter = format_color.YdpFormatter
