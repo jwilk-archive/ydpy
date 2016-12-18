@@ -1,4 +1,4 @@
-# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2014-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -18,40 +18,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-PYTHON = python3
-INSTALL = install
+export LC_ALL=C
 
-PREFIX = /usr/local
-DESTDIR =
-
+rst2man = $(or $(shell which rst2man),rst2man.py)
 exe = ydpy
 
-bindir = $(PREFIX)/bin
-basedir = $(PREFIX)/share/$(exe)
-mandir = $(PREFIX)/share/man
-
 .PHONY: all
-all: ;
+all: $(exe).1
 
-.PHONY: install
-install:
-	# binary:
-	$(INSTALL) -d -m755 $(DESTDIR)$(bindir)
-	python_exe=$$($(PYTHON) -c 'import sys; print(sys.executable)') && \
-	sed \
-		-e "1 s@^#!.*@#!$$python_exe@" \
-		-e "s#^basedir = .*#basedir = '$(basedir)/'#" \
-		$(exe) > $(DESTDIR)$(bindir)/$(exe)
-	chmod 0755 $(DESTDIR)$(bindir)/$(exe)
-	# library:
-	( find lib -type f ! -name '*.py[co]' ) \
-	| xargs -t -I {} $(INSTALL) -p -D -m644 {} $(DESTDIR)$(basedir)/{}
-	# manual page:
-	$(INSTALL) -p -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
+$(exe).1: manpage.rst
+	$(rst2man) --input-encoding=UTF-8:strict < $(<) > $(@).tmp
+	sed -i -e '/^[.]BI/ {s/\\fP/\\fR/g}' $(@).tmp  # work-around for https://bugs.debian.org/806601
+	mv $(@).tmp $(@)
 
 .PHONY: clean
 clean:
-	find . -type f -name '*.py[co]' -delete
-	find . -type d -name '__pycache__' -delete
+	rm -f $(exe).1
 
 # vim:ts=4 sts=4 sw=4 noet
