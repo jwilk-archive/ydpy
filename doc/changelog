@@ -1,4 +1,4 @@
-ydpy (0.4) UNRELEASED; urgency=low
+ydpy (0.4) unstable; urgency=low
 
   * Drop support for Python 2.X.
   * Fix stripping delay annotations from terminfo capabilities.
@@ -7,7 +7,7 @@ ydpy (0.4) UNRELEASED; urgency=low
   * Add the --version option.
   * Add the manual page.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 18 Dec 2016 18:55:57 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 18 Dec 2016 21:29:32 +0100
 
 ydpy (0.3.2) unstable; urgency=low
 
