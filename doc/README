@@ -27,7 +27,7 @@ Prerequisites
 * `lxml`_
 
 * `libydpdict`_
-  
+
 .. _lxml:
    http://lxml.de/
 .. _libydpdict:
