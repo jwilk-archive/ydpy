@@ -1,5 +1,2 @@
 *.py[co]
-MANIFEST
-build
-dist
 doc/*.1
