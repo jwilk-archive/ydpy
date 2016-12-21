@@ -7,8 +7,8 @@ CLI for Collins and Langenscheidt dictionaries
 ----------------------------------------------
 
 :manual section: 1
-:version: ydpy 0.4
-:date: 2016-12-18
+:version: ydpy 0.4.1
+:date: 2016-12-21
 
 Synopsis
 --------
