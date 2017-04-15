@@ -96,7 +96,7 @@ def main():
     encoding = locale.getpreferredencoding()
     if options.term:
         term = options.term
-        matcher = re.compile(term, re.UNICODE | re.IGNORECASE | re.DOTALL).search
+        matcher = re.compile(term, re.IGNORECASE | re.DOTALL).search
     else:
         matcher = id
     path = options.path or config.get('Path') or '/usr/share/ydpdict'
