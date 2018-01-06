@@ -8,7 +8,13 @@ python:
 - "3.5"
 - "3.6"
 - "3.7-dev"
+addons:
+  apt:
+    packages:
+    - libydpdict2
+cache: pip
 install:
+- \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || pip install lxml
 - pip install pyflakes
 - pip install docutils
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || pip install pygments
@@ -16,5 +22,11 @@ script:
 - private/run-pyflakes
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || private/check-rst
 - make -C doc
+- make install PREFIX=~/.local
+- export PATH=~/.local/bin:"$PATH"
+- command -v ydpy
+- \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || ydpy --help
+- export MANPATH=~/.local/share/man MANWIDTH=80
+- man 1 ydpy | grep -A 10 -w YDPY
 
 # vim:ts=2 sts=2 sw=2 et
