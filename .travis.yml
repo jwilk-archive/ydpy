@@ -15,10 +15,11 @@ addons:
 cache: pip
 install:
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || pip install lxml
-- pip install pyflakes
+- pip install pydiatra pyflakes
 - pip install docutils
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || pip install pygments
 script:
+- private/run-pydiatra
 - private/run-pyflakes
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || private/check-rst
 - make -C doc
