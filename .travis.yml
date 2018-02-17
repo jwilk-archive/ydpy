@@ -22,8 +22,8 @@ install:
 - pip install docutils
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || pip install pygments
 script:
-- private/run-pydiatra
-- private/run-pyflakes
+- python3 -m pydiatra .
+- python3 -m pyflakes .
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || private/check-rst
 - make -C doc
 - make install PREFIX=~/.local
