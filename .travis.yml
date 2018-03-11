@@ -27,6 +27,7 @@ script:
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || private/check-rst
 - make -C doc
 - make install PREFIX=~/.local
+- cd /
 - command -v ydpy
 - \[ "$TRAVIS_PYTHON_VERSION" = "3.2" ] || ydpy --help
 - export MANPATH=~/.local/share/man MANWIDTH=80
