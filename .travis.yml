@@ -17,11 +17,13 @@ addons:
     - libydpdict2
 cache: pip
 before_install:
+- pyflakes=pyflakes
+- if [[ $TRAVIS_PYTHON_VERSION = 3.[23] ]]; then pyflakes='pyflakes<2'; fi
 - if [[ $TRAVIS_PYTHON_VERSION = 3.2 ]]; then if_lxml=:; fi
 - if [[ $TRAVIS_PYTHON_VERSION = 3.2 ]]; then if_pygments=:; fi
 install:
 - $if_lxml pip install lxml
-- pip install pydiatra pyflakes
+- pip install pydiatra $pyflakes
 - pip install docutils
 - $if_pygments pip install pygments
 script:
