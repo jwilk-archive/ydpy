@@ -27,6 +27,7 @@ install:
 - pip install docutils
 - $if_pygments pip install pygments
 script:
+- dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
 - python3 -m pydiatra .
 - python3 -m pyflakes .
 - $if_pygments private/check-rst
