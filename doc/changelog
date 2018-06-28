@@ -1,8 +1,8 @@
 ydpy (0.4.1) UNRELEASED; urgency=low
 
-  * 
+  * Drop support for Python 3.2.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 21 Dec 2016 17:30:57 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 28 Jun 2018 21:48:28 +0200
 
 ydpy (0.4) unstable; urgency=low
 
