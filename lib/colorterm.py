@@ -66,6 +66,8 @@ _sgr0 = _strip_delay(_sgr0).decode()
 _bold = curses.tigetstr('bold') or _empty_bytes
 _bold = _strip_delay(_bold).decode()
 
+curses.tparm(b'x')  # work-around for https://bugs.debian.org/902630
+
 _setaf = curses.tigetstr('setaf') or _empty_bytes
 _setaf = _strip_delay(_setaf)
 _setaf = [curses.tparm(_setaf, j).decode() for j in range(8)]
