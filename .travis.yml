@@ -2,7 +2,6 @@ dist: trusty
 sudo: false
 language: python
 python:
-- "3.2"
 - "3.3"
 - "3.4"
 - "3.5"
@@ -18,24 +17,21 @@ addons:
 cache: pip
 before_install:
 - pyflakes=pyflakes
-- if [[ $TRAVIS_PYTHON_VERSION = 3.[23] ]]; then pyflakes='pyflakes<2'; fi
-- if [[ $TRAVIS_PYTHON_VERSION = 3.2 ]]; then if_lxml=:; fi
-- if [[ $TRAVIS_PYTHON_VERSION = 3.2 ]]; then if_pygments=:; fi
+- if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then pyflakes='pyflakes<2'; fi
 install:
-- $if_lxml pip install lxml
+- pip install lxml
 - pip install pydiatra $pyflakes
 - pip install docutils
-- $if_pygments pip install pygments
+- pip install pygments
 script:
 - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
 - python3 -m pydiatra .
 - python3 -m pyflakes .
-- $if_pygments private/check-rst
+- private/check-rst
 - make -C doc
 - make install PREFIX=~/.local
 - cd /
-- command -v ydpy
-- $if_lxml ydpy --help
+- ydpy --help
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 ydpy | grep -A 10 -w YDPY
 

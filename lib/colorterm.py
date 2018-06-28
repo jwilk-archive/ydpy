@@ -52,19 +52,6 @@ except curses.error:
     os.putenv('TERM', 'dumb')
     curses.setupterm()
 
-try:
-    curses.tparm('x'.encode())
-except TypeError:
-    # curses.tparm() is broken in early versions of Python 3.2:
-    # https://bugs.python.org/issue10570
-    def monkeypatch(original_tparm=curses.tparm):
-        def tparm(arg, *args):
-            arg = arg.decode()
-            return original_tparm(arg, *args)
-        curses.tparm = tparm
-    monkeypatch()
-    del monkeypatch
-
 _empty_bytes = ''.encode()
 
 _strip_delay = functools.partial(
