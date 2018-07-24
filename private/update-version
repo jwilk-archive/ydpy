@@ -2,8 +2,9 @@
 set -e -u
 version=${1:?"no version number provided"}
 date="$(date -u --rfc-3339=date)"
+export version date
 PS4='$ '
 set -x
 dch -m -v "$version" -u low -c doc/changelog
-sed -i -E -e "s/^(__version__) = '[0-9.]+'$/\1 = '$version'/" lib/version.py
-sed -i -E -e "s/^(:version: \S+) \S+$/\1 $version/; s/^(:date:) [0-9-]+$/\1 $date/" doc/manpage.rst
+perl -pi -e 's/^__version__ = \047\K[\w.]+/$ENV{version}/' lib/version.py
+perl -pi -e 's/^:version: \S+ \K[\w.]+/$ENV{version}/; s/^:date: \K[0-9-]+/$ENV{date}/' doc/manpage.rst
