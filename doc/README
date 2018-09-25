@@ -30,9 +30,26 @@ Prerequisites
 
 * `libydpdict`_
 
+* data files from the original CDs
+
 .. _lxml:
    https://lxml.de/
 .. _libydpdict:
    http://toxygen.net/ydpdict/
+
+Extracting data files
+---------------------
+
+There are two ways to extract data files from the original CDs:
+
+* Use the Windows installer,
+  then copy the files from the ``database`` subdirectory.
+
+* Use Unshield_::
+
+   unshield -L -O x /path/to/cdrom/DATA1.CAB 'Dict[0-9]*'
+
+.. _Unshield:
+   https://github.com/twogood/unshield
 
 .. vim:ft=rst ts=3 sts=3 sw=3 et
