@@ -1,8 +1,12 @@
 ydpy (0.4.1) UNRELEASED; urgency=low
 
   * Drop support for Python 3.2.
+  * Improve the documentation:
+    + Specify exactly which dictionaries are supported.
+    + Document that you need data files from the original CDs.
+      Explain how to extract them.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 28 Jun 2018 21:48:28 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 01 Oct 2018 21:29:03 +0200
 
 ydpy (0.4) unstable; urgency=low
 
