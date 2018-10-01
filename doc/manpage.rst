@@ -17,9 +17,11 @@ Synopsis
 Description
 -----------
 
-**ydpy** is a command-line interface to the Collins
-English-Polish/Polish-English and Langenscheidt German-Polish/Polish-German
-dictionaries distributed by Young Digital Planet.
+**ydpy** is a command-line interface to the following dictionaries
+distributed by Young Digital Planet:
+
+* English-Polish and Polish-English Collins dictionary
+* Polish-German and German-Polish Langenscheidt dictionary
 
 Options
 -------
