@@ -21,6 +21,8 @@
 # SOFTWARE.
 
 import ctypes
+import os
+
 import lxml.etree
 
 libydp = ctypes.CDLL('libydpdict.so.2')
@@ -65,6 +67,8 @@ class YdpDict(object):
         return ydp_get_word(self._pointer, ctypes.c_int(i))
 
     def __init__(self, dat_path, idx_path):
+        os.stat(os.fsdecode(dat_path))
+        os.stat(os.fsdecode(idx_path))
         self._pointer = ydp_open(dat_path, idx_path, 1)
         if not self._pointer:
             self._open = False
