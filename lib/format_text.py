@@ -51,7 +51,7 @@ class YdpFormatter():
         self.write(node.tail)
 
     def parse_b(self, node):
-        tmp_color = self.set_bold_color()
+        tmp_color = self.set_bold_color()  # pylint: disable=assignment-from-no-return
         self.write(node.text)
         for subnode in node:
             self(subnode)
@@ -86,7 +86,7 @@ class YdpFormatter():
     def parse_span(self, node):
         style = node.get('style')
         color = self._color_map[style]
-        tmp_color = self.set_color(color)
+        tmp_color = self.set_color(color)  # pylint: disable=assignment-from-no-return
         self.write(node.text)
         for subnode in node:
             self(subnode)
@@ -112,7 +112,7 @@ class YdpFormatter():
     def set_bold_color(self):
         pass
 
-    def cleanup(self):
+    def cleanup(self):  # pylint: disable=no-self-use
         return ''.encode()
 
     def __init__(self, encoding):
