@@ -89,10 +89,9 @@ def handler(exception):
             for ch in exception.object[exception.start:exception.end]
         )
         return s, exception.end
-    else:
-        raise TypeError(
-            "Don't know how to handle {exc} in error callback".format(exc=type(exception).__name__)
-        )
+    raise TypeError(
+        "Don't know how to handle {exc} in error callback".format(exc=type(exception).__name__)
+    )
 
 import codecs
 codecs.register_error('transliterate', handler)
