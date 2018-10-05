@@ -39,7 +39,7 @@ libc = ctypes.CDLL(None)
 
 html_parser = lxml.etree.HTMLParser(recover=False, no_network=True)
 
-class YdpWord(object):
+class YdpWord():
     def __init__(self, owner, nth):
         self.owner = owner
         self.nth = nth
@@ -61,7 +61,7 @@ class YdpWord(object):
         finally:
             libc.free(result)
 
-class YdpDict(object):
+class YdpDict():
 
     def _get_word(self, i):
         return ydp_get_word(self._pointer, ctypes.c_int(i))

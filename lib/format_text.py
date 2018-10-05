@@ -26,7 +26,7 @@ import io
 from . import transliterate
 del transliterate  # Hi, pyflakes!
 
-class YdpFormatter(object):
+class YdpFormatter():
 
     class UnhandledTag(Exception):
         pass
