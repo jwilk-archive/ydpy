@@ -52,10 +52,10 @@ except curses.error:
     os.putenv('TERM', 'dumb')
     curses.setupterm()
 
-_empty_bytes = ''.encode()
+_empty_bytes = b''
 
 _strip_delay = functools.partial(
-    re.compile('[$]<([0-9]*[.])?[0-9]+([/*]|[*][/])?>'.encode()).sub,
+    re.compile(b'[$]<([0-9]*[.])?[0-9]+([/*]|[*][/])?>').sub,
     _empty_bytes
 )
 

@@ -113,7 +113,7 @@ class YdpFormatter():
         pass
 
     def cleanup(self):  # pylint: disable=no-self-use
-        return ''.encode()
+        return b''
 
     def __init__(self, encoding):
         self._file = io.StringIO()
