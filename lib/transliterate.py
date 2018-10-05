@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import codecs
+
 FALLBACK = {
     '\xA0': '\x20',
     '°': '^o',
@@ -93,7 +95,6 @@ def handler(exception):
         "Don't know how to handle {exc} in error callback".format(exc=type(exception).__name__)
     )
 
-import codecs
 codecs.register_error('transliterate', handler)
 del codecs
 
