@@ -64,8 +64,8 @@ class YdpDict(object):
     def _get_word(self, i):
         return ydp_get_word(self._pointer, ctypes.c_int(i))
 
-    def __init__(self, dat_file_name, idx_file_name):
-        self._pointer = ydp_open(dat_file_name, idx_file_name, 1)
+    def __init__(self, dat_path, idx_path):
+        self._pointer = ydp_open(dat_path, idx_path, 1)
         if not self._pointer:
             self._open = False
             raise ctypes.pythonapi.PyErr_SetFromErrno(ctypes.py_object(OSError))
