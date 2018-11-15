@@ -57,8 +57,6 @@ DICTIONARIES = (
     ('o', 'pl-de', 'Polish-German', 201),
 )
 
-config = read_config()
-
 class VersionAction(argparse.Action):
     '''
     argparse --version action
@@ -104,6 +102,7 @@ def main():
         matcher = re.compile(term, re.IGNORECASE | re.DOTALL).search
     else:
         matcher = id
+    config = read_config()
     path = options.path or config.get('Path') or '/usr/share/ydpdict'
     if isinstance(path, str):
         path = os.fsencode(path)
