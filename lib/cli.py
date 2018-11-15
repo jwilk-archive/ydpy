@@ -99,7 +99,13 @@ def main():
         matcher = re.compile(term, re.IGNORECASE | re.DOTALL).search
     else:
         matcher = id
-    config = read_config()
+    try:
+        config = read_config()
+    except OSError as exc:
+        print('{prog}: error: {path}: {exc}'.format(
+            prog=ap.prog, path=exc.filename, exc=exc.strerror
+        ))
+        sys.exit(1)
     path = options.path or config.get('Path') or '/usr/share/ydpdict'
     if isinstance(path, str):
         path = os.fsencode(path)
