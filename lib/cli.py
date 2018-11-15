@@ -118,7 +118,14 @@ def main():
             os.path.join(path, 'dict{n:03}.{ext}'.format(n=dict_n, ext=ext).encode())
             for ext in ['dat', 'idx']
         ]
-        with libydp.YdpDict(*paths) as ydpd:
+        try:
+            ydpd = libydp.YdpDict(*paths)
+        except OSError as exc:
+            print('{prog}: error: {path}: {exc}'.format(
+                prog=ap.prog, path=exc.filename, exc=exc.strerror
+            ))
+            sys.exit(1)
+        with ydpd:
             for entry in ydpd:
                 if not matcher(entry.name):
                     continue
