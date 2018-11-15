@@ -96,7 +96,8 @@ class ArgumentParser(argparse.ArgumentParser):
         self.set_defaults(dict_n=100)
 
 def main():
-    options = ArgumentParser().parse_args()
+    ap = ArgumentParser()
+    options = ap.parse_args()
     encoding = locale.getpreferredencoding()
     if options.term:
         term = options.term
