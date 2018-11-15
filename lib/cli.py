@@ -25,7 +25,6 @@ ydpy CLI
 '''
 
 import argparse
-import errno
 import locale
 import os.path
 import sys
@@ -44,10 +43,8 @@ def read_config():
                 key, value = line.strip().split(None, 1)
                 key = key.decode('ASCII')
                 data[key] = value
-    except IOError as ex:
-        if ex.errno == errno.ENOENT:
-            return {}
-        raise
+    except FileNotFoundError:
+        return {}
     return data
 
 DICTIONARIES = (
