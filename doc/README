@@ -26,7 +26,7 @@ Prerequisites
 
 * Python ≥ 3.3
 
-* `lxml`_
+* `lxml`_ ≥ 3.0
 
 * `libydpdict`_
 
