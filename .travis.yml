@@ -3,6 +3,7 @@ language: python
 matrix:
   include:
   - python: "3.3"
+    env: LXML=3.0
   - python: "3.4"
   - python: "3.5"
   - python: "3.6"
@@ -13,11 +14,12 @@ addons:
     - libydpdict2
 cache: pip
 before_install:
+- lxml="lxml${LXML:+==$LXML}"
 - pyflakes=pyflakes
 - if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then pyflakes='pyflakes<2'; fi
 - if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then if_pylint=:; fi
 install:
-- python3 -m pip install lxml
+- python3 -m pip install $lxml
 - python3 -m pip install pydiatra $pyflakes
 - $if_pylint python3 -m pip install pylint
 - python3 -m pip install docutils
