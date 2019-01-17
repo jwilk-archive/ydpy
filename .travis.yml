@@ -34,6 +34,7 @@ script:
 - make install PREFIX=~/.local
 - cd /
 - ydpy --help
+- ydpy --version
 - ydpy --path "$TRAVIS_BUILD_DIR/test"
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 ydpy | grep -A 10 -w YDPY
