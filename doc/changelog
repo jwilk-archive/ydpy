@@ -5,8 +5,13 @@ ydpy (0.4.1) UNRELEASED; urgency=low
     + Specify exactly which dictionaries are supported.
     + Document that you need data files from the original CDs.
       Explain how to extract them.
+    + Document minimum required version of lxml.
+  * Improve the build system:
+    + Use install(1) to install the executable.
+    + Use install(1) in a more portable way.
+  * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 01 Oct 2018 21:29:03 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 17 Jan 2019 22:42:46 +0100
 
 ydpy (0.4) unstable; urgency=low
 
