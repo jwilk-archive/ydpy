@@ -12,7 +12,7 @@ CLI for Collins and Langenscheidt dictionaries
 
 Synopsis
 --------
-**ydpy** [*option*...] [*search‐term*]
+**ydpy** [*option*...] [*regexp*]
 
 Description
 -----------

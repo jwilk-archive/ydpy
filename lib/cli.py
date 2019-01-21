@@ -87,7 +87,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 help='use the {name} dictionary'.format(name=name),
             )
         self.add_argument('-f', '--path', action='store', help='dictionary data directory')
-        self.add_argument('term', metavar='SEARCH-TERM', nargs='?')
+        self.add_argument('term', metavar='REGEXP', nargs='?')
         self.set_defaults(dict_n=100)
 
 def main():
