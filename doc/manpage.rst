@@ -23,6 +23,10 @@ distributed by Young Digital Planet:
 * English‐Polish and Polish‐English Collins dictionary
 * Polish‐German and German‐Polish Langenscheidt dictionary
 
+If *regexp* is specified, **ydpy** prints only entries
+with names matching the specified regular exprssion.
+Otherwise, it prints all the dictionary entries.
+
 Options
 -------
 
@@ -60,5 +64,7 @@ See also
 --------
 
 **ydpdict**\ (1)
+
+https://docs.python.org/3/library/re.html#regular-expression-syntax
 
 .. vim:ts=3 sts=3 sw=3
