@@ -29,6 +29,7 @@ script:
 - python3 -m pydiatra .
 - python3 -m pyflakes .
 - $if_pylint private/run-pylint
+- python3 -m nose --verbose
 - private/check-rst
 - make -C doc
 - make install PREFIX=~/.local
