@@ -27,12 +27,13 @@ ydpy CLI
 import argparse
 import locale
 import os.path
-import sys
 import re
+import sys
 
-from . import libydp
+from . import colorterm
 from . import format_color
 from . import format_text
+from . import libydp
 from . import version
 
 def read_config():
@@ -115,6 +116,7 @@ def main():
         path = os.fsencode(path)
     dict_n = options.dict_n
     if sys.stdout.isatty():
+        colorterm.init()
         YdpFormatter = format_color.YdpFormatter
     else:
         YdpFormatter = format_text.YdpFormatter

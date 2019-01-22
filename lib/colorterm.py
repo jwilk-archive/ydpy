@@ -29,6 +29,11 @@ import functools
 import os
 import re
 
+_setaf = []
+_setab = []
+_bold = []
+_sgr0 = []
+
 def fgcolor(i):
     return _setaf[i]
 
@@ -36,10 +41,10 @@ def bgcolor(i):
     return _setab[i]
 
 def bold():
-    return _bold
+    return _bold[0]
 
 def reset():
-    return _sgr0
+    return _sgr0[0]
 
 BLACK = 0
 RED = 1
@@ -50,12 +55,6 @@ MAGENTA = 5
 CYAN = 6
 WHITE = 7
 
-try:
-    curses.setupterm()
-except curses.error:
-    os.putenv('TERM', 'dumb')
-    curses.setupterm()
-
 _empty_bytes = b''
 
 _strip_delay = functools.partial(
@@ -63,21 +62,24 @@ _strip_delay = functools.partial(
     _empty_bytes
 )
 
-
-_sgr0 = curses.tigetstr('sgr0') or _empty_bytes
-_sgr0 = _strip_delay(_sgr0).decode()
-
-_bold = curses.tigetstr('bold') or _empty_bytes
-_bold = _strip_delay(_bold).decode()
-
-curses.tparm(b'x')  # work-around for https://bugs.debian.org/902630
-
-_setaf = curses.tigetstr('setaf') or _empty_bytes
-_setaf = _strip_delay(_setaf)
-_setaf = [curses.tparm(_setaf, j).decode() for j in range(8)]
-
-_setab = curses.tigetstr('setab') or _empty_bytes
-_setab = _strip_delay(_setab)
-_setab = [curses.tparm(_setab, j).decode() for j in range(8)]
+def init():
+    try:
+        curses.setupterm()
+    except curses.error:
+        os.putenv('TERM', 'dumb')
+        curses.setupterm()
+    c_sgr0 = curses.tigetstr('sgr0') or _empty_bytes
+    c_sgr0 = _strip_delay(c_sgr0).decode()
+    _sgr0[:] = [c_sgr0]
+    c_bold = curses.tigetstr('bold') or _empty_bytes
+    c_bold = _strip_delay(c_bold).decode()
+    _bold[:] = [c_bold]
+    curses.tparm(b'x')  # work-around for https://bugs.debian.org/902630
+    c_setaf = curses.tigetstr('setaf') or _empty_bytes
+    c_setaf = _strip_delay(c_setaf)
+    _setaf[:] = [curses.tparm(c_setaf, j).decode() for j in range(8)]
+    c_setab = curses.tigetstr('setab') or _empty_bytes
+    c_setab = _strip_delay(c_setab)
+    _setab[:] = [curses.tparm(c_setab, j).decode() for j in range(8)]
 
 # vim:ts=4 sts=4 sw=4 et
