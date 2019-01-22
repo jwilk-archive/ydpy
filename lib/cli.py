@@ -28,6 +28,7 @@ import argparse
 import locale
 import os.path
 import re
+import signal
 import sys
 
 from . import colorterm
@@ -96,6 +97,7 @@ class ArgumentParser(argparse.ArgumentParser):
         self.set_defaults(dict_n=100)
 
 def main():
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
     ap = ArgumentParser()
     options = ap.parse_args()
     encoding = locale.getpreferredencoding()
