@@ -25,7 +25,6 @@ ydpy CLI
 '''
 
 import argparse
-import locale
 import os.path
 import re
 import signal
@@ -100,7 +99,7 @@ def main():
     signal.signal(signal.SIGPIPE, signal.SIG_DFL)
     ap = ArgumentParser()
     options = ap.parse_args()
-    encoding = locale.getpreferredencoding()
+    encoding = sys.stdout.encoding
     if options.term:
         term = options.term
         matcher = re.compile(term, re.IGNORECASE | re.DOTALL).search
