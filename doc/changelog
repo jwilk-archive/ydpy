@@ -1,4 +1,4 @@
-ydpy (0.4.1) UNRELEASED; urgency=low
+ydpy (0.4.1) unstable; urgency=low
 
   * Drop support for Python 3.2.
   * Remove trailing garbage when stdout is not a terminal.
@@ -19,7 +19,7 @@ ydpy (0.4.1) UNRELEASED; urgency=low
   * Add rudimentary test suite.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 23 Jan 2019 23:30:16 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 23 Jan 2019 23:32:54 +0100
 
 ydpy (0.4) unstable; urgency=low
 
