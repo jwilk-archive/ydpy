@@ -1,17 +1,25 @@
 ydpy (0.4.1) UNRELEASED; urgency=low
 
   * Drop support for Python 3.2.
-  * Improve the documentation:
+  * Remove trailing garbage when stdout is not a terminal.
+  * Improve documentation:
     + Specify exactly which dictionaries are supported.
     + Document that you need data files from the original CDs.
       Explain how to extract them.
     + Document minimum required version of lxml.
+    + Document CLI positional argument semantics.
+    + Reword descriptions of --help and --version options.
+    + Improve typography in the manual page.
   * Improve the build system:
     + Use install(1) to install the executable.
-    + Use install(1) in a more portable way.
+    + Don't require GNU install(1).
+    + Add install-time Python version check.
+    + Byte-compile Python modules on install.
+    + Add checks against BSD make. (Only GNU make is supported.)
+  * Add rudimentary test suite.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 17 Jan 2019 22:42:46 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 23 Jan 2019 23:30:16 +0100
 
 ydpy (0.4) unstable; urgency=low
 
