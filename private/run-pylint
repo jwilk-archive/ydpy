@@ -26,7 +26,7 @@ PYTHON=${PYTHON:-python3}
 if [ $# -eq 0 ]
 then
     pyscripts=$(grep -l -r '^#!.*python' .)
-    set -- lib/ $pyscripts
+    set -- lib/ tests/ $pyscripts
 fi
 log=$(mktemp -t pylint.XXXXXX)
 "$PYTHON" -m pylint "$@" > "$log" || [ $? != 1 ]
