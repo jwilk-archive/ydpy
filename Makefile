@@ -56,6 +56,10 @@ else
 	install -p -m644 doc/$(<).1 $(DESTDIR)$(mandir)/man1/
 endif
 
+.PHONY: test
+test:
+	$(PYTHON) -m nose --verbose
+
 .PHONY: clean
 clean:
 	find . -type f -name '*.py[co]' -delete
